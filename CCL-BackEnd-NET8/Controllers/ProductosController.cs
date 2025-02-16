@@ -88,15 +88,35 @@ namespace CCL_BackEnd_NET8.Controllers
                 return StatusCode(404, ModelState);
             }
 
-            
-
-            return CreatedAtRoute("GetProducto", new {productoId = productoMapper.Id}, productoMapper);
+            return CreatedAtRoute("GetProductById", new {productoId = productoMapper.Id}, productoMapper);
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpPatch("{productId:int}", Name = "ActualizarCantidadProducto")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public IActionResult ActualizarCantidadProducto(int productId, [FromBody] ProductoDto productoDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+
+            if (productoDto == null || productId != productoDto.Id )
+            {
+                return BadRequest(ModelState);
+            }
+
+            var producto = _mapper.Map<Producto>(productoDto);
+
+            if (!_prRepo.ActualizarProducto(producto))
+            {
+                ModelState.AddModelError("", $"Algo salio mal actualizando el producto {producto.Nombre}");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
 
         // DELETE api/values/5
