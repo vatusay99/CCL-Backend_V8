@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CCL-BackEnd-NET8")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+468c18de07980d3bc8997de1ca60389136fd3882")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7e89fe604cf72911df32d29d79f8d641afea5171")]
 [assembly: System.Reflection.AssemblyProductAttribute("CCL-BackEnd-NET8")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CCL-BackEnd-NET8")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

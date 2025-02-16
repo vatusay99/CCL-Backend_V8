@@ -25,6 +25,7 @@ builder.Services.AddDbContext<ApplicationsDbContext>(options =>
 
 // Adicionamos los repos
 builder.Services.AddScoped<IProductoRepositorio, ProductoRepositorio>();
+builder.Services.AddScoped<IMovientoRepositorio, MovimientoRepositorio>();
 
 // agregar automapper
 builder.Services.AddAutoMapper(typeof(ProductoMapper));

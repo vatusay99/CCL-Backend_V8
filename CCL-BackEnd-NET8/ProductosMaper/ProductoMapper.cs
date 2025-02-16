@@ -13,6 +13,10 @@ namespace CCL_BackEnd_NET8.ProductosMaper
 			CreateMap<Producto, CrearProductoDto>().ReverseMap();
 			CreateMap<Producto, CantidadProductoDto>().ReverseMap();
 
+            CreateMap<Movimiento, MovimientoDto>().ReverseMap();
+            CreateMap<Movimiento, CrearMovimientoDto>().ReverseMap();
+            
+
         }
 	}
 }
