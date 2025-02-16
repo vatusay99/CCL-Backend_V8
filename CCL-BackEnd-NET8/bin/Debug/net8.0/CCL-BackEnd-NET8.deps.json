@@ -13,7 +13,8 @@
           "Microsoft.EntityFrameworkCore": "8.0.4",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.4",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.4",
-          "Swashbuckle.AspNetCore": "6.6.2"
+          "Swashbuckle.AspNetCore": "6.6.2",
+          "XAct.Core.PCL": "0.0.5014"
         },
         "runtime": {
           "CCL-BackEnd-NET8.dll": {}
@@ -38,6 +39,7 @@
           }
         }
       },
+      "CommonServiceLocator/1.3.0": {},
       "Humanizer.Core/2.14.1": {
         "runtime": {
           "lib/net6.0/Humanizer.dll": {
@@ -560,7 +562,12 @@
           "System.Text.Encodings.Web": "8.0.0"
         }
       },
-      "System.Threading.Channels/6.0.0": {}
+      "System.Threading.Channels/6.0.0": {},
+      "XAct.Core.PCL/0.0.5014": {
+        "dependencies": {
+          "CommonServiceLocator": "1.3.0"
+        }
+      }
     }
   },
   "libraries": {
@@ -582,6 +589,13 @@
       "sha512": "sha512-2KQAuMn3fLAQ2r6jeiffZnpv0bi3GCW3iRB2v1KeHIEBu8MNTh9dBlLTZwGvM0pr+9doKkU8L5JgCURmTmT88A==",
       "path": "bogus/34.0.2",
       "hashPath": "bogus.34.0.2.nupkg.sha512"
+    },
+    "CommonServiceLocator/1.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fbjO0SNwbOFPdwVfyqv+B7gIJ2CVBOFPKqn1mDDECK7KER8jFaOdcvroFYoAHa0ktPbxi5s+15qOLnA96f8GSA==",
+      "path": "commonservicelocator/1.3.0",
+      "hashPath": "commonservicelocator.1.3.0.nupkg.sha512"
     },
     "Humanizer.Core/2.14.1": {
       "type": "package",
@@ -911,6 +925,13 @@
       "sha512": "sha512-TY8/9+tI0mNaUMgntOxxaq2ndTkdXqLSxvPmas7XEqOlv9lQtB7wLjYGd756lOaO7Dvb5r/WXhluM+0Xe87v5Q==",
       "path": "system.threading.channels/6.0.0",
       "hashPath": "system.threading.channels.6.0.0.nupkg.sha512"
+    },
+    "XAct.Core.PCL/0.0.5014": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-r0rX5Dzr0mfUp8FtVnxXlv5w+cXhz6tHfQ79lf6naLB92J+h2wkGw0q6CfOa2FiveN2ahSflf6LB2G1cOx43AQ==",
+      "path": "xact.core.pcl/0.0.5014",
+      "hashPath": "xact.core.pcl.0.0.5014.nupkg.sha512"
     }
   }
 }
