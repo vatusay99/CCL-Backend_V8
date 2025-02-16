@@ -1,5 +1,8 @@
 ﻿using CCL_BackEnd_NET8.Data;
 using CCL_BackEnd_NET8.Extencions;
+using CCL_BackEnd_NET8.ProductosMaper;
+using CCL_BackEnd_NET8.Repository;
+using CCL_BackEnd_NET8.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +22,12 @@ builder.Services.AddDbContext<ApplicationsDbContext>(options =>
 {
     options.UseNpgsql(connectionString);
 });
+
+// Adicionamos los repos
+builder.Services.AddScoped<IProductoRepositorio, ProductoRepositorio>();
+
+// agregar automapper
+builder.Services.AddAutoMapper(typeof(ProductoMapper));
 
 var app = builder.Build();
 

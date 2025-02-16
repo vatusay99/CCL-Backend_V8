@@ -103,3 +103,5 @@
 /Users/daviddiaz/Projects/CCL-BackEnd-NET8/CCL-BackEnd-NET8/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /Users/daviddiaz/Projects/CCL-BackEnd-NET8/CCL-BackEnd-NET8/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /Users/daviddiaz/Projects/CCL-BackEnd-NET8/CCL-BackEnd-NET8/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/daviddiaz/Projects/CCL-BackEnd-NET8/CCL-BackEnd-NET8/bin/Debug/net8.0/AutoMapper.dll
+/Users/daviddiaz/Projects/CCL-BackEnd-NET8/CCL-BackEnd-NET8/obj/Debug/net8.0/CCL-BackEnd-NET8.sourcelink.json

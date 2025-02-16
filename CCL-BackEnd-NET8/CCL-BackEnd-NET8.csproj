@@ -18,6 +18,7 @@
     </PackageReference>
     <PackageReference Include="Bogus" Version="34.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +29,7 @@
     <None Remove="Repository\IRepository\" />
     <None Remove="Data\" />
     <None Remove="Extencions\" />
+    <None Remove="ProductosMaper\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -37,5 +39,6 @@
     <Folder Include="Repository\IRepository\" />
     <Folder Include="Data\" />
     <Folder Include="Extencions\" />
+    <Folder Include="ProductosMaper\" />
   </ItemGroup>
 </Project>
