@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CCL_BackEnd_NET8.Models;
 using CCL_BackEnd_NET8.Models.Dtos;
+using CCL_BackEnd_NET8.ProductosMaper;
 using CCL_BackEnd_NET8.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -96,6 +97,7 @@ namespace CCL_BackEnd_NET8.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult ActualizarCantidadProducto(int productId, [FromBody] ProductoDto productoDto)
         {
             if (!ModelState.IsValid)
@@ -120,9 +122,26 @@ namespace CCL_BackEnd_NET8.Controllers
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{productId:int}", Name = "BorrarProducto")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult BorrarProducto(int productId)
         {
+            if (!_prRepo.ExisteProducto(productId))
+            {
+                return NotFound($"No existe Id {productId}");
+            }
+
+            var producto = _prRepo.GetProducto(productId);
+            if (!_prRepo.EliminarProducto(producto))
+            {
+                ModelState.AddModelError("", $"Algo salio mal eliminar el producto {producto.Nombre}");
+                return StatusCode(404, ModelState);
+            }
+
+            return NoContent();
         }
     }
 }
