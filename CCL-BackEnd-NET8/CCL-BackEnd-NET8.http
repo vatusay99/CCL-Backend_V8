@@ -1,0 +1,7 @@
+﻿@CCL_BackEnd_NET8_HostAddress = http://localhost:5060
+
+GET {{CCL_BackEnd_NET8_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+

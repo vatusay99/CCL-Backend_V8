@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../buildMultiTargeting/CCL-BackEnd-NET8.props" />
+</Project>
