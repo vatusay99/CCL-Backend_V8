@@ -14,6 +14,7 @@ namespace CCL_BackEnd_NET8.Data
 		// paso de los modelos
 		public DbSet<Producto> Prodocto { get; set; }
 		public DbSet<Movimiento> Movimiento { get; set; }
+		public DbSet<Usuario> Usuario { get; set; }
     }
 }
 
