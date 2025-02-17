@@ -1,5 +1,7 @@
 ﻿
+using System.Net;
 using AutoMapper;
+using CCL_BackEnd_NET8.Models;
 using CCL_BackEnd_NET8.Models.Dtos;
 using CCL_BackEnd_NET8.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +16,13 @@ namespace CCL_BackEnd_NET8.Controllers
     {
         private readonly IUsuarioRepositorio _usRepo;
         private readonly IMapper _mapper;
+        protected RespuestasApi _respuestaApi;
 
         public UsuariosController(IUsuarioRepositorio usRepo, IMapper mapper)
         {
             _usRepo = usRepo;
             _mapper = mapper;
+            this._respuestaApi = new();
         }
 
         // GET: api/values
@@ -56,7 +60,7 @@ namespace CCL_BackEnd_NET8.Controllers
             return Ok(itemUsuarioDto);
         }
 
-        [HttpPost("registro")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -66,10 +70,56 @@ namespace CCL_BackEnd_NET8.Controllers
             var validarEmailUnico = _usRepo.IsUniqueEmail(usuarioRegistradoDto.Email);
             if (!validarEmailUnico)
             {
-
+                _respuestaApi.StatusCode = HttpStatusCode.BadRequest;
+                _respuestaApi.isSuccess = false;
+                _respuestaApi.ErrorMessages.Add("El Email ya se encuentra registrado.");
+                return BadRequest(_respuestaApi);
             }
 
-            return Ok(usuarioRegistradoDto);
+            var usuario = await _usRepo.Registro(usuarioRegistradoDto);
+            if(usuario == null)
+            {
+                _respuestaApi.StatusCode = HttpStatusCode.BadRequest;
+                _respuestaApi.isSuccess = false;
+                _respuestaApi.ErrorMessages.Add("Error en el registro, intente mas tarde!!.");
+                return BadRequest(_respuestaApi);
+            }
+
+            _respuestaApi.StatusCode = HttpStatusCode.OK;
+            _respuestaApi.isSuccess = true;
+            _respuestaApi.Result = "${usuario}";
+            return Ok(_respuestaApi);
+        }
+
+        [HttpPost("Login")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IActionResult> Login([FromBody] UsuarioLoginRespuestaDto usuarioLoginRespuestaDto)
+        {
+            var respuestaLogin = await _usRepo.Login(usuarioLoginRespuestaDto);
+            if (respuestaLogin.Usuario == null)
+            {
+                _respuestaApi.StatusCode = HttpStatusCode.BadRequest;
+                _respuestaApi.isSuccess = false;
+                _respuestaApi.ErrorMessages.Add("Credenciales no validas.");
+                return BadRequest(_respuestaApi);
+            }
+
+            //var usuario = _usRepo.Registro(usuarioRegistradoDto);
+            //if (usuario == null)
+            //{
+            //    _respuestaApi.StatusCode = HttpStatusCode.BadRequest;
+            //    _respuestaApi.isSuccess = false;
+            //    _respuestaApi.ErrorMessages.Add("Error en el registro, intente mas tarde!!.");
+            //    return BadRequest(_respuestaApi);
+            //}
+
+            //_respuestaApi.StatusCode = HttpStatusCode.OK;
+            //_respuestaApi.isSuccess = true;
+            //_respuestaApi.Result = "${usuario}";
+            return Ok(_respuestaApi);
         }
 
     }

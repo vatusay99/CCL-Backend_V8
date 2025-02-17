@@ -101,7 +101,7 @@ namespace CCL_BackEnd_NET8.Repository
 
             _db.Usuario.Add(usuario);
             await _db.SaveChangesAsync();
-            usuario.Password = passwordEncriptado;
+            //usuario.Password = passwordEncriptado;
             return usuario;
         }
 

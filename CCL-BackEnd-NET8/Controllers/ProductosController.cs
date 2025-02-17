@@ -15,14 +15,11 @@ namespace CCL_BackEnd_NET8.Controllers
     {
         private readonly IProductoRepositorio _prRepo;
         private readonly IMapper _mapper;
-        private RespuestasApi _respuestaApi;
 
         public ProductosController(IProductoRepositorio prRepo, IMapper mapper)
         {
             _prRepo = prRepo;
             _mapper = mapper;
-            this._respuestaApi = new ();
-
         }
 
         // GET: api/values
