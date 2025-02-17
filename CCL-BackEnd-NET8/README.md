@@ -2,8 +2,7 @@
 
 # Name Repository
 
-> Backend en .Net 8 usando entity framework y ASP.Net para la API Rest de producto y movimientos. prueba para CCL.
-(Nota importante: debido a problemas de espacio en mi disco duro debi implementar la base de datos apoyandome en Neon que es una alternatiba en la nube y por el mismo motivo no pude actualizar a SDK 9 y tube que utilisar SDk 8.0.4 de .Net  que es la version mas reciente y estable que el SO de mi mac Acepta.)
+> Backend en .Net 8 usando entity framework y ASP.Net para la API Rest de producto y movimientos. Prueba para CCL. (Nota importante: debido a problemas de espacio en mi disco duro debí implementar la base de datos apoyándome en Neón que es una alternativa en la nube y por el mismo motivo no pude actualizar a SDK 9 y tuve que utilizar SDk 8.0.4 de .Net que es la versión más reciente y estable que el SO de mi mac Acepta.)
 
 ### Prerequisites
 
