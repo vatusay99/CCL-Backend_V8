@@ -45,6 +45,7 @@ To get a local copy up and running follow these simple example steps.
 
 > Conexion a Base de datos PostGreSQL: 
 si deseas te dejo el usuario y Pass mas la cadena de conexion a neon para que puedas validar las tablas y las consultas de prueba que requieras.
+(Conexion a base de datos estara disponible por una semana luego se cambiaran las credenciales.)
 - Usuario: neondb_owner
 - Pass: npg_60fJbDaVOAtn
 - Host: ep-dark-boat-a8x7tpir.eastus2.azure.neon.tech
@@ -68,7 +69,6 @@ si deseas te dejo el usuario y Pass mas la cadena de conexion a neon para que pu
 whatsapp: 3212482176
 Email: sinedindnd@hotmail.com
 
-## Show your support
 
 
 
