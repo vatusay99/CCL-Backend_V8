@@ -3,6 +3,7 @@
 # Name Repository
 
 > Backend en .Net 8 usando entity framework y ASP.Net para la API Rest de producto y movimientos. Prueba para CCL. (Nota importante: debido a problemas de espacio en mi disco duro debí implementar la base de datos apoyándome en Neón que es una alternativa en la nube y por el mismo motivo no pude actualizar a SDK 9 y tuve que utilizar SDk 8.0.4 de .Net que es la versión más reciente y estable que el SO de mi mac Acepta.)
+PDTA: en la sección de instalación dejo los datos para la conexión a Base dedatos con Neón
 
 ### Prerequisites
 
@@ -20,16 +21,6 @@
 - AutoMapper
 - Suager
 
-
-### Install
-
-1. Clone the repo
-   ```
-   git clone https://github.com/vatusay99/CCL-Backend_V8.git
-   ```
-2. ```cd CCL-Backend_V8 ```
-3. ``` dotnet run ```
-
 ## Live Demo (if available)
 
 [Cuenta GitHub](https://github.com/vatusay99/CCL-Backend_V8)
@@ -43,25 +34,41 @@ To get a local copy up and running follow these simple example steps.
 
 --SDK .Net 8
 
+### Install
+
+1. Clone the repo
+   ```
+   git clone https://github.com/vatusay99/CCL-Backend_V8.git
+   ```
+2. ```cd CCL-Backend_V8 ```
+3. ``` dotnet run ```
+
+> Conexion a Base de datos PostGreSQL: 
+si deseas te dejo el usuario y Pass mas la cadena de conexion a neon para que puedas validar las tablas y las consultas de prueba que requieras.
+- Usuario: neondb_owner
+- Pass: npg_60fJbDaVOAtn
+- Host: ep-dark-boat-a8x7tpir.eastus2.azure.neon.tech
+- PORT: 5432
+- Database: neondb
+
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Usage
 
-1.
-```sh
- dotnet run
-```
+1. ```dotnet run```
 
 ## Authors
 
-👤 **David Nedin Diaz Martinez**
+👤 **  David Nedin Diaz Martinez**
 
 - GitHub: [@user](https://github.com/vatusay99/CCL-Backend_V8)
-
-## Show your support
 
 whatsapp: 3212482176
 Email: sinedindnd@hotmail.com
 
-## Acknowledgments
+## Show your support
+
+
 
