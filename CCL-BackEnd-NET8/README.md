@@ -19,7 +19,7 @@ PDTA: en la sección de instalación dejo los datos para la conexión a Base ded
 - Neon (Servidor de PostGreSQL)
 - JWT
 - AutoMapper
-- Suager
+- Swagger
 
 ## Live Demo (if available)
 
@@ -41,7 +41,9 @@ To get a local copy up and running follow these simple example steps.
    git clone https://github.com/vatusay99/CCL-Backend_V8.git
    ```
 2. ```cd CCL-Backend_V8 ```
-3. ``` dotnet run ```
+3. ```Correr los Paquetes dese el proyecto CCL_BackEnd_NET8 ```
+4. ```correo la limpiesa o Clear desde el proyecto ```
+5. ``` dotnet run dese el proyecto CCL_BackEnd_NET8```
 
 > Conexion a Base de datos PostGreSQL: 
 si deseas te dejo el usuario y Pass mas la cadena de conexion a neon para que puedas validar las tablas y las consultas de prueba que requieras.

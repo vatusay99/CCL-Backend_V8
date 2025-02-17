@@ -60,8 +60,8 @@ namespace CCL_BackEnd_NET8.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Registro([FromBody], UsuarioRegistradoDto usuarioRegistradoDto)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IActionResult> Registro([FromBody] UsuarioRegistradoDto usuarioRegistradoDto)
         {
             var validarEmailUnico = _usRepo.IsUniqueEmail(usuarioRegistradoDto.Email);
             if (!validarEmailUnico)
