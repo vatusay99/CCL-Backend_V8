@@ -11,7 +11,7 @@ namespace CCL_BackEnd_NET8.Models.Dtos
 
         public string Nombre { get; set; }
 
-        public object Password { get; set; }
+        public string Password { get; set; }
 
         public string Role { get; set; }
     }

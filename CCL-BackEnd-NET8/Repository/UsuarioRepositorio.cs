@@ -1,8 +1,11 @@
-﻿using System;
+﻿
 using CCL_BackEnd_NET8.Data;
 using CCL_BackEnd_NET8.Models;
 using CCL_BackEnd_NET8.Models.Dtos;
 using CCL_BackEnd_NET8.Repository.IRepository;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -11,9 +14,11 @@ namespace CCL_BackEnd_NET8.Repository
 	public class UsuarioRepositorio: IUsuarioRepositorio
     {
         private readonly ApplicationsDbContext _db;
-        public UsuarioRepositorio(ApplicationsDbContext db)
+        private string claveSecreta;
+        public UsuarioRepositorio(ApplicationsDbContext db, IConfiguration config)
 		{
 			_db = db;
+            claveSecreta = config.GetValue<string>("ApiSettings:Secreta");
 		}
 
         public ICollection<Usuario> GetUsuarios()
@@ -38,9 +43,48 @@ namespace CCL_BackEnd_NET8.Repository
 
         }
 
-        public Task<UsuarioLoginRespuestaDto> Login(UsuarioLoginRespuestaDto usuarioLoginRespuestaDto)
+        public async Task<UsuarioLoginRespuestaDto> Login(UsuarioLoginRespuestaDto usuarioLoginRespuestaDto)
         {
-            throw new NotImplementedException();
+            //var passwordEncriptado = obtenermd5(usuarioLoginRespuestaDto.Password);
+
+            //var usuario = await _db.Usuario.FirstOrDefault(
+            //        u => u.Email.ToLower() == usuarioLoginRespuestaDto.usuarioDatosDto.Email.ToLower()
+            //            && u.Password == passwordEncriptado
+            //    );
+
+            //if (usuario == null)
+            //{
+            //    return new UsuarioLoginRespuestaDto()
+            //    {
+                    //Usuario = null,
+                    //Token = "",
+            //    };
+            //}
+
+            // si usuario existe y es correcto emaily pass
+            var Jwt = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(claveSecreta);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    //new Claim(ClaimTypes.Email, usuario.Email),
+                    //new Claim(ClaimTypes.Role, usuario.Role),
+
+                }),
+                Expires = DateTime.UtcNow.AddHours(2),
+                SigningCredentials = new (new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = Jwt.CreateToken(tokenDescriptor);
+            //UsuarioLoginRespuestaDto usuarioLoginRespuestaDto = new UsuarioLoginRespuestaDto()
+            //{
+            //    Token = Jwt.WriteToken(token),
+                //Usuario = usuario
+            //};
+
+            return usuarioLoginRespuestaDto;
         }
 
         public async Task<Usuario> Registro(UsuarioRegistradoDto usuarioRegistradoDto)
@@ -64,7 +108,7 @@ namespace CCL_BackEnd_NET8.Repository
         public static string obtenermd5(string valor)
         {
             MD5CryptoServiceProvider x = new MD5CryptoServiceProvider();
-            byte[] data = System.Text.Encoding.UTF8.GetBytes(valor);
+            byte[] data = Encoding.UTF8.GetBytes(valor);
             data = x.ComputeHash(data);
             string resp = "";
             for (int i =0; i<data.Length; i++)

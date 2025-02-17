@@ -1,4 +1,5 @@
-﻿using CCL_BackEnd_NET8.Data;
+﻿using CCL_BackEnd_NET8.Controllers;
+using CCL_BackEnd_NET8.Data;
 using CCL_BackEnd_NET8.Extencions;
 using CCL_BackEnd_NET8.ProductosMaper;
 using CCL_BackEnd_NET8.Repository;
@@ -26,6 +27,7 @@ builder.Services.AddDbContext<ApplicationsDbContext>(options =>
 // Adicionamos los repos
 builder.Services.AddScoped<IProductoRepositorio, ProductoRepositorio>();
 builder.Services.AddScoped<IMovientoRepositorio, MovimientoRepositorio>();
+builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
 // agregar automapper
 builder.Services.AddAutoMapper(typeof(ProductoMapper));
