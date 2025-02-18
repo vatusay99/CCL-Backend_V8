@@ -13,6 +13,7 @@ namespace CCL_BackEnd_NET8.Controllers
     [Route("api/movimiento")]
     [ApiController]
     [Authorize]
+    [ResponseCache(Duration = 20)]
     public class MovimientosController : ControllerBase
     {
         private readonly IMovientoRepositorio _movRepo;

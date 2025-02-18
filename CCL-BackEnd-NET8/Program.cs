@@ -31,6 +31,9 @@ builder.Services.AddDbContext<ApplicationsDbContext>(options =>
     options.UseNpgsql(connectionString);
 });
 
+// Cache
+builder.Services.AddResponseCaching();
+
 // Adicionamos los repos
 builder.Services.AddScoped<IProductoRepositorio, ProductoRepositorio>();
 builder.Services.AddScoped<IMovientoRepositorio, MovimientoRepositorio>();

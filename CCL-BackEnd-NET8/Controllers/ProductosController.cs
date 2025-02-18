@@ -13,6 +13,7 @@ namespace CCL_BackEnd_NET8.Controllers
     [Route("/productos/movimiento")]
     [ApiController]
     [Authorize]
+    [ResponseCache(Duration = 20)]
     public class ProductosController : ControllerBase
     {
         private readonly IProductoRepositorio _prRepo;
