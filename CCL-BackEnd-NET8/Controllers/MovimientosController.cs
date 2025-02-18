@@ -3,6 +3,7 @@ using AutoMapper;
 using CCL_BackEnd_NET8.Models;
 using CCL_BackEnd_NET8.Models.Dtos;
 using CCL_BackEnd_NET8.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,6 +12,7 @@ namespace CCL_BackEnd_NET8.Controllers
 {
     [Route("api/movimiento")]
     [ApiController]
+    [Authorize]
     public class MovimientosController : ControllerBase
     {
         private readonly IMovientoRepositorio _movRepo;
@@ -26,7 +28,9 @@ namespace CCL_BackEnd_NET8.Controllers
         // GET: api/values
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [AllowAnonymous]
         public IActionResult GetMovimientos()
         {
             var listaMovimientos = _movRepo.GetMovimiento();

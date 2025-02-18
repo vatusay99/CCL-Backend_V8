@@ -4,6 +4,8 @@
 
 > Backend en .Net 8 usando entity framework y ASP.Net para la API Rest de producto y movimientos. Prueba para CCL. (Nota importante: debido a problemas de espacio en mi disco duro debí implementar la base de datos apoyándome en Neón que es una alternativa en la nube y por el mismo motivo no pude actualizar a SDK 9 y tuve que utilizar SDk 8.0.4 de .Net que es la versión más reciente y estable que el SO de mi mac Acepta.)
 PDTA: en la sección de instalación dejo los datos para la conexión a Base dedatos con Neón
+## Politicas de CORS
+para consumir esta API las politicas de cors esta configurada para responder al path "http://localhost:4200".
 
 ### Prerequisites
 

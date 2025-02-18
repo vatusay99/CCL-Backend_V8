@@ -4,6 +4,8 @@ using AutoMapper;
 using CCL_BackEnd_NET8.Models;
 using CCL_BackEnd_NET8.Models.Dtos;
 using CCL_BackEnd_NET8.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -12,6 +14,8 @@ namespace CCL_BackEnd_NET8.Controllers
 {
     [Route("/auth/login")]
     [ApiController]
+    //[EnableCors("PoliticaCors")]
+    //[Authorize]
     public class UsuariosController : ControllerBase
     {
         private readonly IUsuarioRepositorio _usRepo;
@@ -29,6 +33,7 @@ namespace CCL_BackEnd_NET8.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize]
         public IActionResult GetUsuarios()
         {
             var listaUsuarios = _usRepo.GetUsuarios();
@@ -47,6 +52,7 @@ namespace CCL_BackEnd_NET8.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize]
         public IActionResult GetUsuarioById(int Id)
         {
             var itemUsuario = _usRepo.GetUsuario(Id);
@@ -61,6 +67,7 @@ namespace CCL_BackEnd_NET8.Controllers
         }
 
         [HttpPost("registro")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

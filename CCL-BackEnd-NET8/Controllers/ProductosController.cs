@@ -3,6 +3,7 @@ using CCL_BackEnd_NET8.Models;
 using CCL_BackEnd_NET8.Models.Dtos;
 using CCL_BackEnd_NET8.ProductosMaper;
 using CCL_BackEnd_NET8.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,6 +12,7 @@ namespace CCL_BackEnd_NET8.Controllers
 {
     [Route("/productos/movimiento")]
     [ApiController]
+    [Authorize]
     public class ProductosController : ControllerBase
     {
         private readonly IProductoRepositorio _prRepo;
@@ -26,6 +28,7 @@ namespace CCL_BackEnd_NET8.Controllers
         [HttpGet(Name = "/inventario")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult GetProducts()
         {
             var listaProductos = _prRepo.GetProductos();
@@ -42,6 +45,7 @@ namespace CCL_BackEnd_NET8.Controllers
         // GET api/values/5
         [HttpGet("{productId:int}", Name = "GetProductById")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
