@@ -60,7 +60,7 @@ namespace CCL_BackEnd_NET8.Controllers
             return Ok(itemUsuarioDto);
         }
 
-        [HttpPost]
+        [HttpPost("registro")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -99,7 +99,7 @@ namespace CCL_BackEnd_NET8.Controllers
         public async Task<IActionResult> Login([FromBody] UsuarioLoginRespuestaDto usuarioLoginRespuestaDto)
         {
             var respuestaLogin = await _usRepo.Login(usuarioLoginRespuestaDto);
-            if (respuestaLogin.Usuario == null)
+            if (respuestaLogin.Usuario == null || string.IsNullOrEmpty(respuestaLogin.Token))
             {
                 _respuestaApi.StatusCode = HttpStatusCode.BadRequest;
                 _respuestaApi.isSuccess = false;
@@ -107,18 +107,9 @@ namespace CCL_BackEnd_NET8.Controllers
                 return BadRequest(_respuestaApi);
             }
 
-            //var usuario = _usRepo.Registro(usuarioRegistradoDto);
-            //if (usuario == null)
-            //{
-            //    _respuestaApi.StatusCode = HttpStatusCode.BadRequest;
-            //    _respuestaApi.isSuccess = false;
-            //    _respuestaApi.ErrorMessages.Add("Error en el registro, intente mas tarde!!.");
-            //    return BadRequest(_respuestaApi);
-            //}
-
-            //_respuestaApi.StatusCode = HttpStatusCode.OK;
-            //_respuestaApi.isSuccess = true;
-            //_respuestaApi.Result = "${usuario}";
+            _respuestaApi.StatusCode = HttpStatusCode.OK;
+            _respuestaApi.isSuccess = true;
+            _respuestaApi.Result = respuestaLogin;
             return Ok(_respuestaApi);
         }
 

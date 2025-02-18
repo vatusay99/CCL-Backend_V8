@@ -3,6 +3,7 @@ using CCL_BackEnd_NET8.Data;
 using CCL_BackEnd_NET8.Models;
 using CCL_BackEnd_NET8.Models.Dtos;
 using CCL_BackEnd_NET8.Repository.IRepository;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -15,11 +16,16 @@ namespace CCL_BackEnd_NET8.Repository
     {
         private readonly ApplicationsDbContext _db;
         private string claveSecreta;
+        private string Issuer;
+        private string Audience;
+
         public UsuarioRepositorio(ApplicationsDbContext db, IConfiguration config)
 		{
 			_db = db;
             claveSecreta = config.GetValue<string>("ApiSettings:Secreta");
-		}
+            Issuer = config.GetValue<string>("ApiSettings:Issuer");
+            Audience = config.GetValue<string>("ApiSettings:Audience");
+        }
 
         public ICollection<Usuario> GetUsuarios()
         {
@@ -45,46 +51,40 @@ namespace CCL_BackEnd_NET8.Repository
 
         public async Task<UsuarioLoginRespuestaDto> Login(UsuarioLoginRespuestaDto usuarioLoginRespuestaDto)
         {
-            //var passwordEncriptado = obtenermd5(usuarioLoginRespuestaDto.Password);
+            var passwordEncriptado = obtenermd5(usuarioLoginRespuestaDto.Usuario.Password);
 
-            //var usuario = await _db.Usuario.FirstOrDefault(
-            //        u => u.Email.ToLower() == usuarioLoginRespuestaDto.usuarioDatosDto.Email.ToLower()
-            //            && u.Password == passwordEncriptado
-            //    );
+            var usuario = _db.Usuario.FirstOrDefault(
+                    u => u.Email.ToLower() == usuarioLoginRespuestaDto.Usuario.Email.ToLower()
+                        && u.Password == passwordEncriptado
+                );
 
-            //if (usuario == null)
-            //{
-            //    return new UsuarioLoginRespuestaDto()
-            //    {
-                    //Usuario = null,
-                    //Token = "",
-            //    };
-            //}
-
-            // si usuario existe y es correcto emaily pass
-            var Jwt = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(claveSecreta);
-
-            var tokenDescriptor = new SecurityTokenDescriptor
+            if (usuario == null)
             {
-                Subject = new ClaimsIdentity(new Claim[]
+                return new UsuarioLoginRespuestaDto()
                 {
-                    //new Claim(ClaimTypes.Email, usuario.Email),
-                    //new Claim(ClaimTypes.Role, usuario.Role),
+                    Token = "",
+                    Usuario = null,
+                };
+            }
 
-                }),
-                Expires = DateTime.UtcNow.AddHours(2),
-                SigningCredentials = new (new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            var token = GenerateTwt(usuarioLoginRespuestaDto, usuario.Role);
+
+            if (token.IsNullOrEmpty())
+            {
+                return new UsuarioLoginRespuestaDto()
+                {
+                    Token = "",
+                    Usuario = null,
+                };
+            }
+
+            UsuarioLoginRespuestaDto usuarioLoginRespuesta = new UsuarioLoginRespuestaDto()
+            {
+                Token = token,
+                Usuario = usuarioLoginRespuestaDto.Usuario
             };
 
-            var token = Jwt.CreateToken(tokenDescriptor);
-            //UsuarioLoginRespuestaDto usuarioLoginRespuestaDto = new UsuarioLoginRespuestaDto()
-            //{
-            //    Token = Jwt.WriteToken(token),
-                //Usuario = usuario
-            //};
-
-            return usuarioLoginRespuestaDto;
+            return usuarioLoginRespuesta;
         }
 
         public async Task<Usuario> Registro(UsuarioRegistradoDto usuarioRegistradoDto)
@@ -116,6 +116,27 @@ namespace CCL_BackEnd_NET8.Repository
                 resp += data[i].ToString("x2").ToLower();
             }
             return resp;
+        }
+
+        public string GenerateTwt(UsuarioLoginRespuestaDto usuarioLoginRespuestaDto, string role)
+        {
+            var SecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(claveSecreta));
+            var credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256Signature);
+            var claims = new Claim[]
+                {
+                    new Claim(ClaimTypes.Email, usuarioLoginRespuestaDto.Usuario.Email.ToString()),
+                    new Claim(ClaimTypes.Role, role.ToString())
+                };
+
+            var token = new JwtSecurityToken(
+                    Issuer,
+                    Audience,
+                    claims,
+                    expires: DateTime.UtcNow.AddMinutes(2),
+                    signingCredentials: credentials
+                );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }
